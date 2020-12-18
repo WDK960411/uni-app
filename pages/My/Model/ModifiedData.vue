@@ -16,7 +16,7 @@
 					<input class="uni-input input" @input="onname"  :value="this.data.name"/>
 				</li>
 				<li class="list">
-					<view class="title post">等级</view>
+					<view class="title post">手机号</view>
 					<input class="uni-input input" @input="onpost"  :value="this.data.post"/>
 				</li>
 			</ul>
@@ -31,7 +31,7 @@
 				data:{
 					headimg:'../../../static/img/head_portrait.png',
 					name: '张三',
-					post:'大众会员',
+					post:'17606419601',
 				}
 			}
 		},
@@ -52,7 +52,9 @@
 				    content: '确定保存吗？',
 				    success: function (res) {
 				        if (res.confirm) {
-				           
+				           uni.navigateTo({
+				               url: '../My'
+				           });
 				        } else if (res.cancel) {
 				            console.log('用户点击取消');
 				        }
@@ -65,7 +67,6 @@
 			},
 			onpost: function(event) {
 				this.post = event.target.value
-
 			},
 		}
 	}
@@ -117,7 +118,7 @@
 					height: 100rpx;
 					border-bottom: 2rpx solid rgba(228,228,228,1);
 					.title{
-						width: 80rpx;
+						width: 100rpx;
 						line-height: 100rpx;
 						float: left;
 					}
@@ -138,7 +139,6 @@
 					margin-top: 45rpx;
 					margin-left: 50rpx;
 				}
-				
 			}
 		}
 	}

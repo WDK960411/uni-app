@@ -64,7 +64,7 @@
 			}
 		},
 		onLoad() {
-	
+			console.log('初始账号：17606419601','初始密码：123456')
 		},
 		methods: {
 			Inputname:function(event) {
@@ -90,16 +90,16 @@
 			},
 			//登入
 			enter(){
-				if(this.name === ''||this.password === ''){
-					alert('请输入账号和密码')
+				if(this.name === ''&&this.password === ''){
+					alert('请输入手机号和密码')
 				}else{
 					if(this.show === false){
-						if(this.name === 'admin'||this.password === '123456'){
+						if(this.name === '17606419601'&&this.password === '123456'){
 							uni.reLaunch({
 								url: '../Home/index',
 							});
 						}else{
-							alert('账号或密码输入错误')
+							alert('手机号或密码输入错误')
 							this.name = '',
 							this.password = '',
 							this.show = true
@@ -110,12 +110,12 @@
 							this.password = '',
 							this.verification = ''
 						}else{
-							if(this.name === 'admin'||this.password === '123456'){
+							if(this.name === 'admin'&&this.password === '123456'){
 								uni.reLaunch({
 									url: '../Home/index',
 								});
 							}else{
-								alert('账号或密码输入错误')
+								alert('手机号或密码输入错误')
 								this.name = '',
 								this.password = '',
 								this.verification = ''
@@ -123,9 +123,6 @@
 						}
 					}
 				}
-				console.log('输入的账号：',this.name)
-				console.log('输入的密码：',this.password)
-				console.log('输入的验证码：',this.verification)
 			}
 		}
 	}

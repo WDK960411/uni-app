@@ -1,5 +1,6 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [
+		//pages数组中第一项表示应用启动页
 		{
 			"path": "pages/login/login",
 			"style": {
@@ -15,9 +16,16 @@
 			}
 		},
 		{
+			"path": "pages/login/Model/user_agreement",
+			"style": {
+				"navigationBarTitleText": "小医在诊 — 用户协议",
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/login/Model/reset_password",
 			"style": {
-				"navigationBarTitleText": "小医在诊 — 重置密码",
+				"navigationBarTitleText": "小医在诊 — 密码重置",
 				"navigationStyle": "custom"
 			}
 		},

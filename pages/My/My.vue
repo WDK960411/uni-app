@@ -10,7 +10,7 @@
 					张三
 				</view>
 				<view class="post">
-					大众会员
+					176****0641
 				</view>
 			</view>
 			<image class="right" src="../../static/img/right.png" mode=""></image>
