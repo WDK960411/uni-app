@@ -22,11 +22,9 @@
 			</view>
 			<view class="uni-form-item uni-column">
 				<input class="input verification_code" @input="Inputverification"  v-model="phone_verification" type="text" placeholder="请输入手机验证码" />
-				<button class="verification get" v-if="get_show" @tap="get">
-					获取验证码
-				</button>
+				<button class="verification get" v-if="get_show" @tap="get">{{btn_value}}</button>
 				<view class="verification time" v-if="time_show">
-					{{time}}秒后再获取
+					{{time}}s后重新获取
 				</view>
 			</view>
 			<checkbox-group class="checked_box">
@@ -56,14 +54,15 @@
 				password:'',
 				password2:'',
 				phone_verification:'',
+				btn_value:'获取验证码',
 				checked:false,
 				get_show:true,
 				time_show:false,
-				time: '59'
+				time: ''
 			}
 		},
 		onLoad() {
-	
+			console.log('默认验证码：123456')
 		},
 		methods: {
 			//返回上一页
@@ -95,31 +94,65 @@
 			//获取验证码
 			get(){
 				if(this.phone === ''){
-					alert('请输入手机号码')
+					uni.showToast({
+						title: '请输入手机号码',
+						icon: "none"
+					});
 				}else{
 					this.get_show = false
 					this.time_show = true
+					this.time = 60
+					let timer = setInterval(() => {
+						this.time--;
+						if (this.time < 1) {
+							clearInterval(timer);
+							this.time = 0
+							this.get_show = true
+							this.time_show = false
+							this.btn_value = '重新获取'
+						}
+					}, 1000)
 				}
 			},
+			 
 			//注册
 			register(){
 				if(this.checked === false){
-					alert('请先阅读并勾选用户协议')
+					uni.showToast({
+						title: '请先阅读并勾选用户协议',
+						icon: "none"
+					});
 				}else{
 					if(this.password !== this.password2||this.password === '' && this.password2 === ''){
-						alert('两次密码输入不一致')
+						uni.showToast({
+							title: '两次密码输入不一致',
+							icon: "none"
+						});
+						this.password = '',
+						this.password2 = ''
 					}else{
-						if(this.time_show = false){
-							alert('请先获取验证码')
-						}else{
-							this.phone = '',
-							this.password = '',
-							this.password2 = '',
-							this.phone_verification = '',
-							uni.navigateTo({
-								url: '../login'
-							});
-						}
+						// if(this.time_show === false){
+						// uni.showToast({
+						// 	title: '请先获取验证码',
+						// 	icon: "none"
+						// });
+						// }else{
+							if(this.phone_verification === '123456'){
+								uni.navigateTo({
+									url: '../login'
+								});
+								this.phone = '',
+								this.password = '',
+								this.password2 = '',
+								this.phone_verification = ''
+							}else{
+								uni.showToast({
+									title: '验证码错误',
+									icon: "none"
+								});
+								this.phone_verification = ''
+							}
+						// }
 					}
 				}
 			}

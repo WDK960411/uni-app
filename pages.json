@@ -16,16 +16,16 @@
 			}
 		},
 		{
-			"path": "pages/login/Model/user_agreement",
+			"path": "pages/login/Model/reset_password",
 			"style": {
-				"navigationBarTitleText": "小医在诊 — 用户协议",
+				"navigationBarTitleText": "小医在诊 — 密码重置",
 				"navigationStyle": "custom"
 			}
 		},
 		{
-			"path": "pages/login/Model/reset_password",
+			"path": "pages/login/Model/user_agreement",
 			"style": {
-				"navigationBarTitleText": "小医在诊 — 密码重置",
+				"navigationBarTitleText": "小医在诊 — 用户协议",
 				"navigationStyle": "custom"
 			}
 		},

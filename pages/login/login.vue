@@ -8,7 +8,7 @@
 		</view>
 		<view class="main">
 			<view class="uni-form-item uni-column" >
-				<input class="input name" @input="Inputname" v-model="name" placeholder="请输入手机号" />
+				<input class="input phone" @input="Inputphone" v-model="phone" placeholder="请输入手机号" />
 			</view>
 			<view class="uni-form-item uni-column">
 				<input class="input password" @input="Inputpassword" v-model="password" password type="text" placeholder="请输入密码" />
@@ -56,7 +56,7 @@
 	export default {
 		data() {
 			return {
-				name:'',
+				phone:'',
 				password:'',
 				show:false,
 				verification:'',
@@ -67,8 +67,8 @@
 			console.log('初始账号：17606419601','初始密码：123456')
 		},
 		methods: {
-			Inputname:function(event) {
-				this.name = event.target.value
+			Inputphone:function(event) {
+				this.phone = event.target.value
 			},
 			Inputpassword:function(event) {
 				this.password = event.target.value
@@ -91,34 +91,46 @@
 			//登入
 			enter(){
 				if(this.name === ''&&this.password === ''){
-					alert('请输入手机号和密码')
+					uni.showToast({
+						title: '请输入手机号和密码',
+						icon: "none"
+					});
 				}else{
 					if(this.show === false){
-						if(this.name === '17606419601'&&this.password === '123456'){
+						if(this.phone !== '17606419601'&&this.password !== '123456'){
+							uni.showToast({
+								title: '手机号或密码输入错误',
+								icon: "none"
+							});
+							this.phone = '',
+							this.password = '',
+							this.show = true
+						}else{
 							uni.reLaunch({
 								url: '../Home/index',
 							});
-						}else{
-							alert('手机号或密码输入错误')
-							this.name = '',
-							this.password = '',
-							this.show = true
 						}
 					}else{
 						if(this.verification !== 'vwo7'){
-							alert('验证码输入错误')
+							uni.showToast({
+								title: '验证码输入错误',
+								icon: "none"
+							});
 							this.password = '',
 							this.verification = ''
 						}else{
-							if(this.name === 'admin'&&this.password === '123456'){
+							if(this.phone !== 'admin'&&this.password !== '123456'){
+								uni.showToast({
+									title: '手机号或密码输入错误',
+									icon: "none"
+								});
+								this.phone = '',
+								this.password = '',
+								this.verification = ''
+							}else{
 								uni.reLaunch({
 									url: '../Home/index',
 								});
-							}else{
-								alert('手机号或密码输入错误')
-								this.name = '',
-								this.password = '',
-								this.verification = ''
 							}
 						}
 					}
@@ -170,7 +182,7 @@
 				}
 			}
 			.verification{
-				width: 45%;
+				width: 50%;
 			}
 			.verification_img{
 				width: 45%;

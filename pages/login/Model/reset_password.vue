@@ -12,20 +12,20 @@
 				<input class="input password2" @input="Inputpassword2" v-model="password2" password type="text" placeholder="请确认新密码" />
 			</view>
 			<view class="uni-form-item uni-column">
-				<input class="input phone" @input="Inputphone"  v-model="phone" type="text" placeholder="请输入手机号" />
-				<button class="verification get" v-if="get_show" @tap="get">
-					获取验证码
+				<input class="input phone" @input="Inputphone" v-model="phone" type="text" placeholder="请输入手机号" />
+				<button class="verification get" v-if="get_show" @click="get">
+					{{btn_txt}}
 				</button>
 				<view class="verification time" v-if="time_show">
-					{{time}}秒后再获取
+					{{time}}s后重新获取
 				</view>
 			</view>
-			<view class="uni-form-item uni-column" >
+			<view class="uni-form-item uni-column">
 				<input class="input verification_code" @input="Inputverification" v-model="verification_code" placeholder="请输入验证码" />
 			</view>
 		</view>
 		<view class="button">
-			<button  class="submit" @tap="submit">提交</button>
+			<button class="submit" @click="submit">提交</button>
 		</view>
 	</view>
 </template>
@@ -33,73 +33,109 @@
 <script>
 	import Index from "../../index/index.vue"
 	export default {
-		components:{
+		components: {
 			Index,
 		},
 		data() {
 			return {
-				phone:'',
-				password:'',
-				password2:'',
-				verification_code:'',
-				checked:false,
-				get_show:true,
-				time_show:false,
-				time: '59'
+				phone: '',
+				password: '',
+				password2: '',
+				verification_code: '',
+				btn_txt:'获取验证码',
+				checked: false,
+				get_show: true,
+				time_show: false,
+				time: ''
 			}
 		},
 		onLoad() {
-	
+			console.log('默认验证码：123456')
 		},
 		methods: {
 			//返回上一页
-			getback(){
+			getback() {
 				uni.navigateTo({
-				    url: '../login'
+					url: '../login'
 				});
 			},
-			Inputphone:function(event) {
+			Inputphone: function(event) {
 				this.phone = event.target.value
 			},
-			Inputpassword:function(event) {
+			Inputpassword: function(event) {
 				this.password = event.target.value
 			},
-			Inputpassword2:function(event) {
+			Inputpassword2: function(event) {
 				this.password2 = event.target.value
 			},
-			Inputverification:function(event) {
+			Inputverification: function(event) {
 				this.verification_code = event.target.value
 			},
-			change(){
+			change() {
 				this.checked = !this.checked
 			},
 			//获取验证码
-			get(){
-				if(this.phone === ''){
-					alert('请输入手机号码')
-				}else{
+			get() {
+				if (this.phone === '') {
+					uni.showToast({
+						title: '请输入手机号码',
+						icon: "none"
+					});
+				} else {
 					this.get_show = false
 					this.time_show = true
+					// if (this.time > 0) {
+					// 	uni.showToast({
+					// 		title: '不能重复获取',
+					// 		icon: "none"
+					// 	});
+					// 	return;
+					// } else {
+						this.time = 60
+						let timer = setInterval(() => {
+							this.time--;
+							if (this.time < 1) {
+								clearInterval(timer);
+								this.time = 0
+								this.get_show = true
+								this.time_show = false
+								this.btn_txt = '重新获取'
+							}
+						}, 1000)
+					// }
 				}
 			},
 			//提交
-			submit(){
-				if(this.password !== this.password2){
-					alert('两次密码输入不一致')
-					this.password = '',
-					this.password2 = ''
-				}else{
-					if(this.time_show = false){
-						alert('请先获取验证码')
-					}else{
-						this.phone = '',
-						this.password = '',
-						this.password2 = '',
-						this.verification_code = '',
-						uni.navigateTo({
-							url: '../login'
+			submit() {
+				if(this.password !== ''){
+					if (this.password !== this.password2) {
+						uni.showToast({
+							title: '两次密码输入不一致',
+							icon: "none"
 						});
+						this.password = '',
+						this.password2 = ''
+					} else {
+						if (this.verification_code !== '123456') {
+							uni.showToast({
+								title: '验证码错误',
+								icon: "none"
+							});
+						} else {
+							uni.navigateTo({
+								url: '../login'
+							});
+							this.phone = '',
+							this.password = '',
+							this.password2 = '',
+							this.verification_code = ''
+						}
 					}
+				}else{
+					uni.showToast({
+						title: '请输入新密码',
+						icon: "none"
+					});
 				}
 			}
 		}
@@ -108,96 +144,114 @@
 
 <style lang="scss">
 	@import url("../../../static/iconfont/iconfont.css");
+
 	.content {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		.top{
+
+		.top {
 			width: 100%;
 			height: 90rpx;
 			border-bottom: 2rpx solid #eee;
-			.iconfont{
+
+			.iconfont {
 				font-size: 40rpx;
-				color: rgba(51,51,51,1);
+				color: rgba(51, 51, 51, 1);
 				float: left;
 				margin-top: 20rpx;
 			}
-			.txt{
-				font-size:36rpx;
-				font-family:PingFang SC;
-				font-weight:bold;
-				color:rgba(51,51,51,1);
+
+			.txt {
+				font-size: 36rpx;
+				font-family: PingFang SC;
+				font-weight: bold;
+				color: rgba(51, 51, 51, 1);
 				text-align: center;
 				margin-top: 20rpx;
 			}
 		}
-		.logo{
+
+		.logo {
 			width: 180rpx;
 			height: 180rpx;
 			margin-top: 10rpx;
 		}
-		.head-title{
+
+		.head-title {
 			width: 310rpx;
 			height: 120rpx;
 			margin-top: 30rpx;
 			font-weight: 600;
 			font-size: 39rpx;
 		}
-		.main{
+
+		.main {
 			width: 660rpx;
-			.input{
+
+			.input {
 				height: 80rpx;
-				border-bottom: 2rpx solid rgba(213,217,225,1);
+				border-bottom: 2rpx solid rgba(213, 217, 225, 1);
 				background-color: #FFF !important;
-				.uni-input-input{
+
+				.uni-input-input {
 					background-color: #FFF !important;
 				}
 			}
-			.phone{
+
+			.phone {
 				width: 65%;
 			}
-			.verification{
+
+			.verification {
 				width: 34%;
 				height: 81rpx;
 				float: right;
 				margin-top: -81rpx;
 			}
-			.get{
+
+			.get {
 				font-size: 30rpx;
 			}
-			.time{
+
+			.time {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
 				font-size: 24rpx;
-				border: 2rpx solid rgba(213,217,225,1);
+				border: 2rpx solid rgba(213, 217, 225, 1);
 				box-sizing: border-box;
 				border-radius: 10rpx;
-				color: rgba(155,217,225,1);
+				color: rgba(155, 217, 225, 1);
 			}
-			.checked_box{
+
+			.checked_box {
 				margin-top: 20rpx;
-				.checked_option{
-					transform:scale(0.7);
+
+				.checked_option {
+					transform: scale(0.7);
 					float: left;
-					color:rgba(47,109,224,1);
+					color: rgba(47, 109, 224, 1);
 				}
-				.checked_txt{
+
+				.checked_txt {
 					font-size: 28rpx;
 					float: left;
 					margin-top: 6rpx;
-					color:#169bd5;
+					color: #169bd5;
 					font-weight: 500;
 				}
 			}
 		}
-		.button{
+
+		.button {
 			margin-top: 100rpx;
-			.submit{
+
+			.submit {
 				width: 690rpx;
-				background:#169bd5;
+				background: #169bd5;
 				color: #fff;
 				font-size: 36rpx;
 			}
