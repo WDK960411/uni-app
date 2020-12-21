@@ -31,10 +31,12 @@
 </template>
 
 <script>
-	import Index from "../../index/index.vue"
 	export default {
 		components: {
-			Index,
+			
+		},
+		onLoad() {
+			console.log('默认验证码：123456')
 		},
 		data() {
 			return {
@@ -48,9 +50,6 @@
 				time_show: false,
 				time: ''
 			}
-		},
-		onLoad() {
-			console.log('默认验证码：123456')
 		},
 		methods: {
 			//返回上一页
@@ -188,8 +187,7 @@
 		}
 
 		.main {
-			width: 660rpx;
-
+			width: 650rpx;
 			.input {
 				height: 80rpx;
 				border-bottom: 2rpx solid rgba(213, 217, 225, 1);
@@ -250,7 +248,7 @@
 			margin-top: 100rpx;
 
 			.submit {
-				width: 690rpx;
+				width: 640rpx;
 				background: #169bd5;
 				color: #fff;
 				font-size: 36rpx;

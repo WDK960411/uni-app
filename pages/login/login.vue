@@ -36,17 +36,17 @@
 		</view>
 		<view class="cut_off_wire">
 			<view class="cut_off_txt">
-				第三方登入
+				第三方登录
 			</view>
 		</view>
 		<view class="thirdparty">
 			<view class="box wechat">
 				<image class="logo wechat_logo" src="../../static/img/wechat.png" mode=""></image>
-				<span class="txt">微信登入</span>
+				<span class="txt">微信登录</span>
 			</view>
 			<view class="box Alipay">
 				<image class="logo Alipay_logo" src="../../static/img/Alipay.png" mode=""></image>
-				<span class="txt" style="margin-top: 15rpx;">支付宝登入</span>
+				<span class="txt" style="margin-top: 15rpx;">支付宝登录</span>
 			</view>
 		</view>
 	</view>
@@ -54,6 +54,12 @@
 
 <script>
 	export default {
+		components: {
+			
+		},
+		onLoad() {
+			console.log('初始账号：17606419601','初始密码：123456')
+		},
 		data() {
 			return {
 				phone:'',
@@ -62,9 +68,6 @@
 				verification:'',
 				src:'../../static/img/verification.png'
 			}
-		},
-		onLoad() {
-			console.log('初始账号：17606419601','初始密码：123456')
 		},
 		methods: {
 			Inputphone:function(event) {
@@ -162,7 +165,7 @@
 		}
 		.main{
 			margin-top: 10rpx;
-			width: 690rpx;
+			width: 650rpx;
 			// height: 550rpx;
 			.operation{
 				margin-top: 40rpx;
@@ -199,7 +202,7 @@
 			.button{
 				margin-top: 150rpx;
 				.enter{
-					width: 690rpx;
+					width: 640rpx;
 					background:#169bd5;
 					color: #fff;
 					font-size: 36rpx;

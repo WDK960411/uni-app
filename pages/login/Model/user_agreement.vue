@@ -15,13 +15,13 @@
 		components:{
 
 		},
+		onLoad() {
+			
+		},
 		data() {
 			return {
 
 			}
-		},
-		onLoad() {
-	
 		},
 		methods: {
 			//返回上一页
@@ -61,7 +61,7 @@
 			}
 		}
 		.main{
-			width: 660rpx;
+			width: 650rpx;
 			margin-top: 100rpx;
 		}
 		
