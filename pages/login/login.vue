@@ -40,11 +40,11 @@
 			</view>
 		</view>
 		<view class="thirdparty">
-			<view class="box wechat">
+			<view class="box wechat" @tap="gowechat">
 				<image class="logo wechat_logo" src="../../static/img/wechat.png" mode=""></image>
 				<span class="txt">微信登录</span>
 			</view>
-			<view class="box Alipay">
+			<view class="box Alipay" @tap="goAlipay">
 				<image class="logo Alipay_logo" src="../../static/img/Alipay.png" mode=""></image>
 				<span class="txt" style="margin-top: 15rpx;">支付宝登录</span>
 			</view>
@@ -58,7 +58,7 @@
 			
 		},
 		onLoad() {
-			console.log('初始账号：17606419601','初始密码：123456')
+			console.log('初始账号：17606419601','初始密码：123wdk')
 		},
 		data() {
 			return {
@@ -100,7 +100,7 @@
 					});
 				}else{
 					if(this.show === false){
-						if(this.phone !== '17606419601'&&this.password !== '123456'){
+						if(this.phone !== '17606419601'&&this.password !== '123wdk'){
 							uni.showToast({
 								title: '手机号或密码输入错误',
 								icon: "none"
@@ -122,7 +122,7 @@
 							this.password = '',
 							this.verification = ''
 						}else{
-							if(this.phone !== 'admin'&&this.password !== '123456'){
+							if(this.phone !== 'admin'&&this.password !== '123wdk'){
 								uni.showToast({
 									title: '手机号或密码输入错误',
 									icon: "none"
@@ -138,6 +138,28 @@
 						}
 					}
 				}
+			},
+			//支付宝登录
+			goAlipay(){ 
+				uni.showToast({
+					title: '暂未开发',
+					icon: "none"
+				});
+				// let alipayUrl="https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=商户的APPID&scope=auth_user&redirect_uri=https://www.xxxxxxx.com/alipayCallback.html"  
+				// let openURL="alipays://platformapi/startapp?appId=20000067&url="+encodeURIComponent(alipayUrl);  
+				// console.log("openURL:" + openURL);  
+				// plus.runtime.openURL(openURL,err=>{  
+				// 	uni.showToast({  
+				// 		title:"打开支付宝失败！请检查是否已安装？",  
+				// 		icon:'none'  
+				// 	})  
+				// })  
+			},
+			gowechat(){
+				uni.showToast({
+					title: '暂未开发',
+					icon: "none"
+				});
 			}
 		}
 	}

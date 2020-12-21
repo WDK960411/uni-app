@@ -13,7 +13,7 @@
 			</view>
 			<view class="uni-form-item uni-column">
 				<input class="input phone" @input="Inputphone" v-model="phone" type="text" placeholder="请输入手机号" />
-				<button class="verification get" v-if="get_show" @click="get">
+				<button class="verification get" v-if="get_show" @tap="get">
 					{{btn_txt}}
 				</button>
 				<view class="verification time" v-if="time_show">
@@ -25,7 +25,7 @@
 			</view>
 		</view>
 		<view class="button">
-			<button class="submit" @click="submit">提交</button>
+			<button class="submit" @tap="submit">提交</button>
 		</view>
 	</view>
 </template>
@@ -37,6 +37,7 @@
 		},
 		onLoad() {
 			console.log('默认验证码：123456')
+			console.log('密码格式：数字加字母，长度6位以上')
 		},
 		data() {
 			return {
@@ -81,55 +82,71 @@
 						icon: "none"
 					});
 				} else {
-					this.get_show = false
-					this.time_show = true
-					// if (this.time > 0) {
-					// 	uni.showToast({
-					// 		title: '不能重复获取',
-					// 		icon: "none"
-					// 	});
-					// 	return;
-					// } else {
-						this.time = 60
-						let timer = setInterval(() => {
-							this.time--;
-							if (this.time < 1) {
-								clearInterval(timer);
-								this.time = 0
-								this.get_show = true
-								this.time_show = false
-								this.btn_txt = '重新获取'
-							}
-						}, 1000)
-					// }
+					if(!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.phone))){
+						 uni.showToast({
+							title: '手机号错误',
+							icon: "none"
+						 });
+					}else{
+						this.get_show = false
+						this.time_show = true
+						// if (this.time > 0) {
+						// 	uni.showToast({
+						// 		title: '不能重复获取',
+						// 		icon: "none"
+						// 	});
+						// 	return;
+						// } else {
+							this.time = 60
+							let timer = setInterval(() => {
+								this.time--;
+								if (this.time < 1) {
+									clearInterval(timer);
+									this.time = 0
+									this.get_show = true
+									this.time_show = false
+									this.btn_txt = '重新获取'
+								}
+							}, 1000)
+						// }
+					}
+					
 				}
 			},
 			//提交
 			submit() {
 				if(this.password !== ''){
-					if (this.password !== this.password2) {
+					if(!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/.test(this.password))){
 						uni.showToast({
-							title: '两次密码输入不一致',
+							title: '密码格式不正确',
 							icon: "none"
 						});
-						this.password = '',
-						this.password2 = ''
-					} else {
-						if (this.verification_code !== '123456') {
+					}else{
+						if (this.password !== this.password2) {
 							uni.showToast({
-								title: '验证码错误',
+								title: '两次密码输入不一致',
 								icon: "none"
 							});
-						} else {
-							uni.navigateTo({
-								url: '../login'
-							});
-							this.phone = '',
 							this.password = '',
-							this.password2 = '',
-							this.verification_code = ''
+							this.password2 = ''
+						} else {
+							if (this.verification_code !== '123456') {
+								uni.showToast({
+									title: '验证码错误',
+									icon: "none"
+								});
+							} else {
+								uni.navigateTo({
+									url: '../login'
+								});
+								this.phone = '',
+								this.password = '',
+								this.password2 = '',
+								this.verification_code = ''
+							}
 						}
 					}
+					
 				}else{
 					uni.showToast({
 						title: '请输入新密码',
