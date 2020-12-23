@@ -1,0 +1,125 @@
+<view class="content">
+  <view class="head_top">
+    <view class="headtitle">小医在诊</view>
+    <view class="headfunction">
+      <view class="head_location">
+        <pick-regions vue-id="e217c72a-1" defaultRegion="{{defaultRegionCode}}"
+          data-event-opts="{{[['^getRegion',[['handleGetRegion']]]]}}" bind:getRegion="__e" bind:__l="__l"
+          vue-slots="{{['default']}}">
+          <block wx:if="{{show}}">
+            <image class="region" src="../../static/img/Home/icon_pic/region.png"></image>
+          </block>
+          <view class="text">{{''+regionName+''}}</view>
+          <block wx:if="{{down}}">
+            <view class="dian">.</view>
+          </block>
+          <block wx:if="{{down}}">
+            <image class="down" src="../../static/img/Home/icon_pic/down.png"></image>
+          </block>
+        </pick-regions>
+      </view>
+      <view data-event-opts="{{[['tap',[['seach',['$event']]]]]}}" class="head_search" bindtap="__e">
+        <image class="seach_pic" src="../../static/img/Home/icon_pic/seach.png"></image>
+        <view class="search_txt">搜索医院、医生、疾病</view>
+      </view>
+      <view data-event-opts="{{[['tap',[['information',['$event']]]]]}}" class="head_information" bindtap="__e">消息
+      </view>
+    </view>
+  </view>
+  <view class="more"></view>
+  <view class="main">
+    <view class="advertise">
+      <uni-swiper-dot vue-id="e217c72a-2" info="{{info}}" current="{{current}}" field="content" mode="{{mode}}"
+        dotsStyles="{{dotsStyles}}" bind:__l="__l" vue-slots="{{['default']}}">
+        <swiper data-event-opts="{{[['change',[['change',['$event']]]]]}}" class="swiper-box" bindchange="__e">
+          <block wx:for="{{info}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+            <swiper-item>
+              <image class="advertise_pic" src="{{item.src}}"></image>
+            </swiper-item>
+          </block>
+        </swiper>
+      </uni-swiper-dot>
+    </view>
+    <view class="subfield_advisory bg">
+      <view class="module inquiry">
+        <image class="icon_pic pic1" src="../../static/img/Home/icon_pic/inquiry.png"></image>
+        <view class="module_title">问诊</view>
+      </view>
+      <view class="module consult">
+        <image class="icon_pic pic2" src="../../static/img/Home/icon_pic/consult.png"></image>
+        <view class="module_title">咨询</view>
+      </view>
+      <view class="module high-end">
+        <image class="icon_pic pic3" src="../../static/img/Home/icon_pic/high_end.png"></image>
+        <view class="module_title">高端就医</view>
+      </view>
+    </view>
+    <view class="announcement_top">
+      <view class="title">公告</view>
+      <image class="sign" src="../../static/img/Home/icon_pic/sign.png"></image>
+      <view class="more">更多...</view>
+    </view>
+    <view class="subfield_announcement">
+      <view class="list uni-flex uni-column">
+        <view class="wrap-item">
+          <view class="lis uni-flex uni-column" animation="{{animationData}}">
+            <block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+              <view class="uni-flex uni-column">
+                <view class="swiper-item item_title uni-flex list_item">
+                  <view class="type uni-flex-item justify-align-center uni-flex">{{item.type}}</view>
+                  <view class="time uni-flex-item justify-align-center uni-flex">{{item.time}}</view>
+                  <view class="news uni-flex-item justify-align-center uni-flex">{{item.news}}</view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="announcement_down"></view>
+    <view class="subfield_outpatient bg">
+      <view class="outpatient_title">专科门诊</view>
+      <view class="outpatient_count">累计服务<label class="nub _span">{{count}}</label>人次</view>
+      <view class="department">
+        <block wx:for="{{department}}" wx:for-item="item" wx:for-index="index">
+          <view class="department_code">
+            <image class="department_pic" src="{{item.pic}}"></image>
+            <view class="department_name">{{''+item.name+''}}</view>
+          </view>
+        </block>
+      </view>
+      <view class="all">
+        <view class="all_box">
+          <image class="all_pic" src="../../static/img/Home/icon_pic/all.png"></image>
+          <view class="all_name">所有</view>
+        </view>
+      </view>
+    </view>
+    <block wx:for="{{doctors}}" wx:for-item="item" wx:for-index="index" wx:key="id">
+      <view class="subfield_doctors bg">
+        <view class="doctors_top">
+          <view class="doctors_title">专家名医</view>
+          <view class="doctors_more">更多</view>
+        </view>
+        <view class="doctors_content">
+          <image class="favorite" src="../../static/img/Home/icon_pic/favorite.png" v-if="{{item.favorite==='false'}}">
+          </image>
+          <block wx:if="{{item.favorite==='true'}}">
+            <image class="favorite active" src="../../static/img/Home/icon_pic/favorite_active.png"></image>
+          </block>
+          <view class="doctors_photo">
+            <image class="photos" src="{{item.photo}}"></image>
+          </view>
+          <view class="doctors_info">
+            <view class="info_one"></view>
+            <view class="info_two"></view>
+            <view class="info_three"></view>
+            <view class="info_four"></view>
+          </view>
+          <view class="doctors_tag"></view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <index vue-id="e217c72a-3" bind:__l="__l"></index>
+</view>

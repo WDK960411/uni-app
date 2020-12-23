@@ -1,0 +1,1 @@
+<view class="content"><view class="top"><view data-event-opts="{{[['tap',[['getback',['$event']]]]]}}" class="iconfont icon-fanhui" style="color:rgba(51,51,51,1);" bindtap="__e"></view><view class="txt">客服</view></view><view class="phone">400-800-5888</view><view data-event-opts="{{[['tap',[['call',['$event']]]]]}}" class="call" bindtap="__e">一键呼叫</view></view>

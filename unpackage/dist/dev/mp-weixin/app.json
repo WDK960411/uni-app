@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/login/Model/register",
+    "pages/login/Model/reset_password",
+    "pages/login/Model/user_agreement",
+    "pages/Home/index",
+    "pages/Home/Model/search",
+    "pages/Information/Information",
+    "pages/Shop/shop",
+    "pages/My/My",
+    "pages/My/Model/ModifiedData",
+    "pages/My/Model/service"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "小医在诊",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {}
+}

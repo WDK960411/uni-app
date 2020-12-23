@@ -1,8 +1,8 @@
-const baseUrl = ''
+const baseUrl = 'http://192.168.0.225:8001'
 const request = (
 	url = '',
 	date = {},
-	type = 'GET',
+	type = '',
 	header = {
 
 	}

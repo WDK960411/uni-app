@@ -16,8 +16,8 @@
 					<input class="uni-input input" @input="onname"  :value="this.data.name"/>
 				</li>
 				<li class="list">
-					<view class="title post">手机号</view>
-					<input class="uni-input input" @input="onpost"  :value="this.data.post"/>
+					<view class="title phone">手机号</view>
+					<input class="uni-input input" @input="onphone"  :value="this.data.phone"/>
 				</li>
 			</ul>
 		</view>
@@ -30,13 +30,19 @@
 			return {
 				data:{
 					headimg:'../../../static/img/head_portrait.png',
-					name: '张三',
-					post:'17606419601',
+					name: '',
+					phone:''
 				}
 			}
 		},
 		onLoad() {
-	
+			uni.getStorage({
+			    key: 'user_data',
+			    success:((res)=> {
+					this.data.name = res.data.nickName
+					this.data.phone = res.data.mobile
+			    })
+			});
 		},
 		methods: {
 			//返回
@@ -124,7 +130,7 @@
 					}
 					.input{
 						float: right;
-						width: 200rpx;
+						width: 250rpx;
 						height: 100rpx;
 						text-align: right;
 					}

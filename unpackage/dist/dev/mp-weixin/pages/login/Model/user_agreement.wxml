@@ -1,0 +1,1 @@
+<view class="content"><view class="top"><view data-event-opts="{{[['tap',[['getback',['$event']]]]]}}" class="iconfont icon-fanhui" style="color:rgba(51,51,51,1);" bindtap="__e"></view><view class="txt">用户协议</view></view><view class="main"></view></view>

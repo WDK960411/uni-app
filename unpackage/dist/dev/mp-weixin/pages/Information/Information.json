@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "小医在诊 — 资讯",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "index": "/pages/index/index"
+  }
+}

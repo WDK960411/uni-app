@@ -21,7 +21,6 @@
 			</view>
 			<checkbox-group class="operation">
 				<label>
-					<!-- <checkbox value="cb"  color="#2F6DE0" style="transform:scale(0.7);float: left;color:rgba(47,109,224,1);" /> -->
 					<view class="txt register" style="float: left;" @tap="register">
 						免费注册
 					</view>
@@ -58,7 +57,7 @@
 			
 		},
 		onLoad() {
-			console.log('初始账号：17606419601','初始密码：123wdk')
+			console.log('初始账号：13105311234','初始密码：123456')
 		},
 		data() {
 			return {
@@ -66,6 +65,7 @@
 				password:'',
 				show:false,
 				verification:'',
+				type:2,
 				src:'../../static/img/verification.png'
 			}
 		},
@@ -99,43 +99,103 @@
 						icon: "none"
 					});
 				}else{
+					
 					if(this.show === false){
-						if(this.phone !== '17606419601'&&this.password !== '123wdk'){
-							uni.showToast({
-								title: '手机号或密码输入错误',
-								icon: "none"
-							});
-							this.phone = '',
-							this.password = '',
-							this.show = true
-						}else{
-							uni.reLaunch({
-								url: '../Home/index',
-							});
-						}
-					}else{
-						if(this.verification !== 'vwo7'){
-							uni.showToast({
-								title: '验证码输入错误',
-								icon: "none"
-							});
-							this.password = '',
-							this.verification = ''
-						}else{
-							if(this.phone !== 'admin'&&this.password !== '123wdk'){
+						let param = {
+							mobile: this.phone,
+							password:this.password,
+							type:this.type
+						};
+						let qs = require("qs");
+							param = qs.stringify(param);
+						this.$request('/yl/login', {
+							data: param,
+							method:'POST',
+							header: {
+							    'custom-header': 'login', 
+								'Content-Type': 'application/x-www-form-urlencoded'
+							},
+						}).then(res => {
+							if(res.data.code === 200){
+								uni.reLaunch({
+									url: '../Home/index',
+								});
+								uni.setStorage({
+									key: 'user_data',
+									data: res.data.data,
+									success:(()=> {
+									   
+									})
+								});
+							}else{
 								uni.showToast({
 									title: '手机号或密码输入错误',
 									icon: "none"
 								});
-								this.phone = '',
-								this.password = '',
-								this.verification = ''
-							}else{
-								uni.reLaunch({
-									url: '../Home/index',
-								});
+								this.show = true
 							}
-						}
+						})
+						//请求测试
+						// uni.request({
+						//     url: 'http://192.168.0.225:8001/yl/login', 
+						//     data: param,
+						// 	method:'POST',
+						//     header: {
+						//         'custom-header': 'login', 
+						// 		'Content-Type': 'application/x-www-form-urlencoded'
+						//     },
+						//     success: (res) => {
+						// 		console.log(res.data.code);
+						// 		uni.setStorage({
+						// 		    key: 'user_data',
+						// 		    data: res.data.data,
+						// 		    success: function () {
+								       
+						// 		    }
+						// 		});
+						// 		if(res.data.code === 200){
+						// 			uni.reLaunch({
+						// 				url: '../Home/index',
+						// 			});
+						// 		}else{
+						// 			uni.showToast({
+						// 				title: '手机号或密码输入错误',
+						// 				icon: "none"
+						// 			});
+						// 			this.show = true
+						// 		}
+						//     }
+						// });
+					}else{
+						this.$request('/yl/login', {
+							data: param,
+							method:'POST',
+							header: {
+							    'custom-header': 'login', 
+								'Content-Type': 'application/x-www-form-urlencoded'
+							},
+						}).then(res => {
+							// 打印调用成功回调
+							console.log(res)
+						})
+						// if(this.verification !== 'vwo7'){
+						// 	uni.showToast({
+						// 		title: '验证码输入错误',
+						// 		icon: "none"
+						// 	});
+						// 	this.password = '',
+						// 	this.verification = ''
+						// }else{
+						// 	if(this.phone !== 'admin'&&this.password !== '123wdk'){
+						// 		this.phone = '',
+						// 		this.password = '',
+						// 		this.verification = ''
+						// 	}else{
+						// 		uni.reLaunch({
+						// 			url: '../Home/index',
+						// 		});
+						// 	}
+						// }
 					}
 				}
 			},
@@ -144,16 +204,7 @@
 				uni.showToast({
 					title: '暂未开发',
 					icon: "none"
-				});
-				// let alipayUrl="https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=商户的APPID&scope=auth_user&redirect_uri=https://www.xxxxxxx.com/alipayCallback.html"  
-				// let openURL="alipays://platformapi/startapp?appId=20000067&url="+encodeURIComponent(alipayUrl);  
-				// console.log("openURL:" + openURL);  
-				// plus.runtime.openURL(openURL,err=>{  
-				// 	uni.showToast({  
-				// 		title:"打开支付宝失败！请检查是否已安装？",  
-				// 		icon:'none'  
-				// 	})  
-				// })  
+				}); 
 			},
 			gowechat(){
 				uni.showToast({

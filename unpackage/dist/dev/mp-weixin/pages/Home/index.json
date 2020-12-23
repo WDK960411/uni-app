@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "小医在诊 — 首页",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "pick-regions": "/components/pick-regions/pick-regions",
+    "uni-swiper-dot": "/components/uni-swiper-dot/uni-swiper-dot",
+    "index": "/pages/index/index"
+  }
+}

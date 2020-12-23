@@ -7,10 +7,10 @@
 			</view>
 			<view class="data">
 				<view class="name">
-					张三
+					{{name}}
 				</view>
 				<view class="post">
-					176****0641
+					{{phone}}
 				</view>
 			</view>
 			<image class="right" src="../../static/img/right.png" mode=""></image>
@@ -49,11 +49,19 @@
 		},
 		data() {
 			return {
-				
+				name:'',
+				phone: ''
 			}
 		},
 		onLoad() {
-	
+			//获取用户数据
+			uni.getStorage({
+			    key: 'user_data',
+			    success:((res)=> {
+					this.name = res.data.nickName
+					this.phone = res.data.mobile.slice(0,3)+'****'+res.data.mobile.slice(7,11)
+			    })
+			});
 		},
 		methods: {
 			//修改资料
@@ -87,6 +95,7 @@
 				uni.reLaunch({
 					url: '../login/login'
 				});
+				uni.clearStorage()
 			}
 		}
 	}
